@@ -1,6 +1,6 @@
 ﻿/*
  * EC_ObjectPoolEmitterEditor.cs
- * #DESCRIPTION#
+ * Editor Script. Generates the popup list from EC_ObjectPooling.generatedEnum.
  * 
  * by Adam Carballo under GPLv3 license.
  * https://github.com/engyne09/UnityObjectPooling
@@ -8,7 +8,6 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
 
 [CustomEditor(typeof(EC_ObjectPoolEmitter))]
 public class EC_ObjectPoolEmitterEditor : Editor {
@@ -17,6 +16,8 @@ public class EC_ObjectPoolEmitterEditor : Editor {
     private EC_ObjectPoolEmitter myScript;
     private int selected = 0;
 
+
+    // Set myScript and configure the popup index
     private void OnEnable() {
 
         myScript = (EC_ObjectPoolEmitter)target;
@@ -27,7 +28,7 @@ public class EC_ObjectPoolEmitterEditor : Editor {
         selected = _index.intValue;
     }
 
-
+    // Draw the popup on the inspector and save a copy locally
     public override void OnInspectorGUI() {
 
         serializedObject.Update();
