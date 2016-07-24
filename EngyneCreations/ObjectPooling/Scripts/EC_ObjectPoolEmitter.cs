@@ -28,9 +28,6 @@ public class EC_ObjectPoolEmitter : MonoBehaviour {
 
         obj.SetActive(true);
 
-        if (EC_ObjectPooling.instance.pool[index].customParent != null) {
-            obj.transform.SetParent(EC_ObjectPooling.instance.pool[index].customParent, true);
-        }
         return obj;
     }
 }

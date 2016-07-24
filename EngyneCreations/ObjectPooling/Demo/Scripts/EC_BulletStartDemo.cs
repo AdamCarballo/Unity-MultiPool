@@ -30,7 +30,7 @@ public class EC_BulletStartDemo : MonoBehaviour {
         InvokeRepeating("SpawnNew", 0, fireTime);
 	}
 
-    // Retrieve from the object pool, check if null and reset the position and rotation.
+    // Retrive from the object pool, check if null, reset position and rotation and set active.
     void SpawnNew() {
 
         GameObject obj = emitter.Generate();
@@ -39,5 +39,6 @@ public class EC_BulletStartDemo : MonoBehaviour {
 
         obj.transform.position = transform.position;
         obj.transform.rotation = transform.rotation;
+        obj.SetActive(true);
 	}
 }

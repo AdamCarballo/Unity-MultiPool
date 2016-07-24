@@ -40,6 +40,11 @@ public class EC_ObjectPooling : MonoBehaviour {
             for (int p = 0; p < pool[i].startAmount; p++) {
                 GameObject obj = Instantiate(pool[i].poolObject);
                 obj.SetActive(false);
+
+                if (pool[i].customParent) {
+                    obj.transform.SetParent(pool[i].customParent, true);
+                }
+
                 pool[i].poolList.Add(obj);
             }
         }
@@ -70,6 +75,11 @@ public class EC_ObjectPooling : MonoBehaviour {
 
         if (pool[index].canGrow) {
             GameObject obj = Instantiate(pool[index].poolObject);
+
+            if (pool[index].customParent) {
+                obj.transform.SetParent(pool[index].customParent, true);
+            }
+
             pool[index].poolList.Add(obj);
             return obj;
         }
