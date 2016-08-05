@@ -8,7 +8,7 @@ Overview
 ----
 Using object pooling to replace `Instantiate()` and `Destroy()` can help the CPU on games with multiple instances of the same object, like *bullet hell* games or *shooters*. It also helps enormously on mobile platforms with reduced CPU capabilities.
 
-Object pools will trade a little of memory foot print for a lower usage of CPU. This is crucial for maintaining consistent framerates.
+Object pools will trade a little of memory footprint for a lower usage of CPU. This is crucial for maintaining consistent framerates.
 
 This Object Pooling solution can be used for separated objects and pools without the need of duplicating scripts or GameObjects.
 
@@ -96,12 +96,6 @@ The only requirement is to call `gameObject.SetActive(false)` to return an objec
 
 If you use the object on other lists or arrays, remember to also remove it.<br>
 I also recommend to reset `Rigidbody.velocity`if the object uses physics.
-
-Define the pool to be used with `ObjectPoolEmitter.cs` popup in the inspector.<br>
-Keep in mind that you first need to **Save Object Pools** if the popup appears empty.
-
-Using `ObjectPoolEmitter.Generate()` will return an object from the desired pool already activated and ready to be used.<br>
-`Generate()`can also return `null`if the pool is empty and `canGrow`is set to false.
 
 <br>
 Demo
