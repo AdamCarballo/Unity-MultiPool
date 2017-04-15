@@ -1,9 +1,7 @@
-Unity Multipool Object Pooling
+Unity MultiPool
 =================
+🗄 MultiPool - Expandable Object Pooling for Unity
 
-Multipool expandable Object Pooling for Unity
-
-<br>
 Overview
 ----
 Using object pooling to replace `Instantiate()` and `Destroy()` can help the CPU on games with multiple instances of the same object, like *bullet hell* games or *shooters*. It also helps enormously on mobile platforms with reduced CPU capabilities.
@@ -12,114 +10,105 @@ Object pools will trade a little of memory footprint for a lower usage of CPU. T
 
 This Object Pooling solution can be used for separated objects and pools without the need of duplicating scripts or GameObjects.
 
-<br>
 Install
 ----
-The source code is available directly from the folders, or if you want you can download only the Unitypackage and import from there.
+The source code is available directly from the folders, or if you want you can download only the [Unitypackage](https://github.com/AdamEC/Unity-MultiPool/releases) and import from there.
 
-<br>
+Should work with any version of Unity 5. Tested from Unity5.4 and up.
+
 Usage
 ----
 Object Polling consists of two scripts, `Multipool.cs`and `MultipoolEmitter.cs` to work.<br>
-All scripts include the *`EC_`* prefix to avoid issues with existing scripts. Remember to use them.
+All scripts include the *`Multipool`* namespace to avoid issues with existing scripts. Remember to use it.
 
-<br>
 
-####Multipool.cs
+#### Multipool.cs
 Holds all the current object pools and handles internal calls for new objects.<br>
 At `Start()`all the object pools will generate the amount of desired objects ready to be called.
 
+During runtime will display relevant information of how your object pools are performing.
 ___
 
-####MultipoolEmitter.cs
+#### MultipoolEmitter.cs
 Receives the amount of object pools available and displays them on a popup in the Inspector.<br>
 Use this script to call an specific pool from the list of available pools using `Generate()`.
-
 ___
-<br>
 
-###Creating Object Pools:
-Change the size of `Multipool.pool[]`in the inspector to generate more or less pools.
+### Creating Object Pools:
+Change the size of `Multipool.pool[]`in the inspector to generate more or less object pools.
 
 ```csharp
   name; // Name of the object pool. Will appear on the generated popup.
   poolObject; // GameObject to pool.
   startAmount; // Number of objects that will be generated on Start().
   canGrow; // If true, the pool will generate more items than startAmount if needed.
+  maxGrow; // Limit of pool grow. 0 = unlimited. Can be edited at runtime.
   customParent; // Optional. Sets the object inside a parent for a cleaner Hierarchy.
 ```
 
-After finishing editing the pools, remember to press **Save Object Pools** button to display them correctly.
+After finishing editing the pools, remember to press **Index Object Pools** button to display them correctly.
 
-<br>
+### Extracting objects from Object Pools:
+Define the pool to be used with the `MultipoolEmitter` popup in the inspector.<br>
+Keep in mind that you first need to **Index Object Pools** if the popup appears empty.
 
-###Extracting objects from Object Pools:
-Define the pool to be used with `MultipoolEmitter.cs` popup in the inspector.<br>
-Keep in mind that you first need to **Save Object Pools** if the popup appears empty.
-
-Using `MultipoolEmitter.Generate()` will return an object from the desired pool already activated and ready to be used.<br>
-`Generate()`can also return `null`if the pool is empty and `canGrow`is set to false.
+Using `MultipoolEmitter.Generate()` will return an object from the desired pool. The object **will not be activated** until you do it manually with `gameObject.SetActive(true)`. Remember that if the object is not activated will still count as "free" for other scripts.<br>
+`Generate()`can also return `null`if the pool is empty and `canGrow`is set to false, or maxGrow has reached the limit.
 
 Example using `BulletStartDemo.cs`:
 
 ```csharp
-public float fireTime;
-private EC_MultipoolEmitter emitter;
+  [Range(0.1f,2f)]
+  [SerializeField] private float _fireTime;
+  private MultipoolEmitter emitter;
 
+  /// <summary>
+  /// Reference the Emitter.
+  /// </summary>
+  void Awake() {
+    emitter = GetComponent<MultipoolEmitter>();
+  }
 
-/// <summary>
-/// Reference the Emitter.
-/// </summary>
-void Awake() {
+  /// <summary>
+  /// Start generating each fireTime.
+  /// </summary>
+  void Start () {
+    StartCoroutine(SpawnNew());
+  }
 
-    emitter = GetComponent<EC_MultipoolEmitter>();
-}
+  /// <summary>
+  /// Retrive from the object pool, check if null, reset position and rotation and set active.
+  /// </summary>
+  private IEnumerator SpawnNew() {
+    while (true) {
+      GameObject obj = emitter.Generate();
+        if (obj) {
+          obj.transform.position = transform.position;
+          obj.transform.rotation = transform.rotation;
+          obj.SetActive(true);
+        }
+        yield return new WaitForSeconds(_fireTime);
+    }
 
-/// <summary>
-/// Start generating each fireTime.
-/// </summary>
-void Start () {
-
-    InvokeRepeating("SpawnNew", 0, fireTime);
-}
-
-/// <summary>
-/// Retrive from the object pool, check if null, reset position and rotation and set active.
-/// </summary>
-void SpawnNew() {
-
-    GameObject obj = emitter.Generate();
-
-    if (obj == null) return;
-
-    obj.transform.position = transform.position;
-    obj.transform.rotation = transform.rotation;
-    obj.SetActive(true);
-}
+  }
 ```
 
-<br>
-
-###Returning objects to Object Pools:
+### Returning objects to Object Pools:
 The source already includes `MultipoolReset.cs` as an example.<br>
 The only requirement is to call `gameObject.SetActive(false)` to return an object to the pool.
 
 If you use the object on other lists or arrays, remember to also remove it.<br>
 I also recommend to reset `Rigidbody.velocity`if the object uses physics.
 
-<br>
 Demo
 ----
-The Demo folder from the source code (included in the Unitypackage) includes a demo scene to understand how everything works.
+The Demo folder in the source code (included in the Unitypackage) includes a demo scene to understand how everything works.
 
-<br>
 History
 ----
-Created by Àdam Carballo (AdamEC)
-
+Created by Àdam Carballo (AdamEC)<br>
 Check other works on *[Engyne Creations](http://engynecreations.com)*.
 
-<br>
-Licence
+License
 ---
-GNU General Public License v3.0
+MIT License
