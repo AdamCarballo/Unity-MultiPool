@@ -28,7 +28,7 @@ namespace Multipool {
         /// <returns>Pool object or null.</returns>
         public GameObject Generate() {
 
-            GameObject obj = Multipool.instance.GetPooledObject(index);
+            GameObject obj = MultipoolManager.instance.GetPooledObject(index);
 
             if (!obj) return null;
 

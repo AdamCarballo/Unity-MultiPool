@@ -18,11 +18,11 @@ Should work with any version of Unity 5. Tested from Unity5.4 and up.
 
 Usage
 ----
-Object Polling consists of two scripts, `Multipool.cs`and `MultipoolEmitter.cs` to work.<br>
+Object Polling consists of two scripts, `MultipoolManager.cs`and `MultipoolEmitter.cs` to work.<br>
 All scripts include the *`Multipool`* namespace to avoid issues with existing scripts. Remember to use it.
 
 
-#### Multipool.cs
+#### MultipoolManager.cs
 Holds all the current object pools and handles internal calls for new objects.<br>
 At `Start()`all the object pools will generate the amount of desired objects ready to be called.
 
@@ -35,7 +35,7 @@ Use this script to call an specific pool from the list of available pools using 
 ___
 
 ### Creating Object Pools:
-Change the size of `Multipool.pool[]`in the inspector to generate more or less object pools.
+Change the size of `MultipoolManager.pool[]`in the inspector to generate more or less object pools.
 
 ```csharp
   name; // Name of the object pool. Will appear on the generated popup.
@@ -92,6 +92,11 @@ Example using `BulletStartDemo.cs`:
 
   }
 ```
+
+If using the `MultipoolEmitter` is not a good idea in your case (for example, you need multiple objects from different pools in one script), you can access `MultipoolManager` directly using the singleton instance `MultipoolManager.instance`.<br>
+To get an object from a pool, use the function `MultipoolManager.GetPooledObject(int index)` where `index` is the id of the list (position on the inspector).
+
+Feel free to inspect all functions inside `MultipoolManager` to make it work with your code.
 
 ### Returning objects to Object Pools:
 The source already includes `MultipoolReset.cs` as an example.<br>

@@ -10,14 +10,14 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Multipool {
-    [CustomEditor(typeof(Multipool))]
-    public class MultipoolEditor : Editor {
+    [CustomEditor(typeof(MultipoolManager))]
+    public class MultipoolManagerEditor : Editor {
 
         #region Class Variables
         public string[] options;
         public int index = 0;
 
-        private Multipool _multipool;
+        private MultipoolManager _multipool;
         private static readonly string[] _scriptHolder = new string[] {"m_Script"};
         #endregion
 
@@ -27,7 +27,7 @@ namespace Multipool {
         /// </summary>
         private void OnEnable() {
 
-            _multipool = (Multipool)target;
+            _multipool = (MultipoolManager)target;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Multipool {
             _runtimeHelpBox.alignment = TextAnchor.UpperCenter;
             _runtimeHelpBox.contentOffset = new Vector2(0, 0);
             EditorGUILayout.TextArea(
-                "<size=30><color=magenta>MultiPool</color> v1.2</size>\n" +
+                "<size=30><color=magenta>MultiPool</color> v1.2.1</size>\n" +
                 "https://github.com/AdamEC/Unity-MultiPool\n"
                 , _runtimeHelpBox);
 

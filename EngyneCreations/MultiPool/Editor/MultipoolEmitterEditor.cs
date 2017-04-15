@@ -46,13 +46,13 @@ namespace Multipool {
 
             _index = serializedObject.FindProperty("index");
 
-            if (Multipool.generatedEnum.Count == 0) {
-                Multipool.generatedEnum = _multipoolEmitter.copyGeneratedEnum;
+            if (MultipoolManager.generatedEnum.Count == 0) {
+                MultipoolManager.generatedEnum = _multipoolEmitter.copyGeneratedEnum;
             }
 
-            _multipoolEmitter.copyGeneratedEnum = Multipool.generatedEnum;
+            _multipoolEmitter.copyGeneratedEnum = MultipoolManager.generatedEnum;
 
-            _selected = EditorGUILayout.Popup("Selected Pool", _selected, Multipool.generatedEnum.ToArray());
+            _selected = EditorGUILayout.Popup("Selected Pool", _selected, MultipoolManager.generatedEnum.ToArray());
             _index.intValue = _selected;
 
             serializedObject.ApplyModifiedProperties();

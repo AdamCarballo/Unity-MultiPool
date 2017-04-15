@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Multipool {
     [DefaultExecutionOrder(-100)]
-    public class Multipool : MonoBehaviour {
+    public class MultipoolManager : MonoBehaviour {
 
         [System.Serializable]
         public class Pool {
@@ -32,7 +32,7 @@ namespace Multipool {
         }
 
         #region Class Variables
-        static public Multipool instance;
+        static public MultipoolManager instance;
         static public List<string> generatedEnum = new List<string>();
 
         [SerializeField] private Pool[] _pool;
