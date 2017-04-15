@@ -27,6 +27,8 @@ Holds all the current object pools and handles internal calls for new objects.<b
 At `Start()`all the object pools will generate the amount of desired objects ready to be called.
 
 During runtime will display relevant information of how your object pools are performing.
+
+![MultiPool Runtime Inspector](https://i.imgur.com/x07ei9n.png)
 ___
 
 #### MultipoolEmitter.cs
