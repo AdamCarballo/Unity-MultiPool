@@ -118,4 +118,5 @@ Check other works on *[Engyne Creations](http://engynecreations.com)*.
 
 License
 ---
-MIT License
+MIT License<br>
+Script icons by [Delapouite](http://delapouite.com).
